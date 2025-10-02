@@ -10,3 +10,18 @@
     . Since we are developing the project so we will not config email service for this
 
 */
+
+
+// ====================================== 02: Entities, Migrations ==================================
+/*
+    . We have passed GenreId in Book table to create the relationship between Book and Genre.
+    . One Book can have only one Genre but one Genre can have many Books.
+    . So this is one to many relationship.
+    . We have to create the navigation properties in both the classes to create the relationship.
+
+*/
+
+
+
+
+
