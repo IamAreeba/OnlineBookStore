@@ -1,29 +1,32 @@
-﻿@{
+﻿@model BookDisplayModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 
 <div class="my-4" >
    
-    <form class="row row-cols-lg-auto g-3 align-items-center">
+    <form asp-action="Index" class="row row-cols-lg-auto g-3 align-items-center">
 
 
         <div class="col-12">
             <label class="visually-hidden" for="genreId">Genres</label>
-            <select class="form-select" id="genreId">
-                <option selected>Genres</option>
-                <option value="1">Action</option>
-                <option value="2">Horror</option>
-                <option value="3">Romance</option>
-                <option value="4">ScienceFiction</option>
+            <select class="form-select" id="genreId" name="genreId">
+
+                <option selected>Genre...</option>
+                @foreach(var genre in Model.Genres)
+                {
+                    <option selected="@(genre.Id == Model.GenreId)" value="@genre.Id"> @genre.GenreName </option>
+                }
+
             </select>
         </div>
 
       <div class="col-12">
             <label class="visually-hidden" for="sterm">Search By Title</label>
-        <div class="input-group">
+        <div class="input-group"> 
           <div class="input-group-text"> </div>
-                <input type="text" class="form-control" id="sterm" placeholder="Search By Title">
+                <input type="text" class="form-control" id="sTerm" name="sTerm" value="@Model.STerm" placeholder="Search By Title">
         </div>
       </div>
 
@@ -35,20 +38,28 @@
    
 </div>
 
-
+,
 <div class="w-100 d-flex my-3 flex-wrap" >
 
-    @for(int i = 1; i <=12; i++)
+    @foreach(var book in Model.Books)
     {
-        <div class="card mx-2 mb-4" style="width: 18rem;">
-            <img src="~/images/no image.png" class="card-img-top" alt="No Image">
+        <div class="card mx-3 mb-4" style="width: 18rem;">
+
+            @if (string.IsNullOrEmpty(book.Image)) 
+            {
+                <img  src="~/images/no image.png" class="card-img-top" alt="No Image">
+            }
+            else
+            {
+                <img  src="~/images/@book.Image" class="card-img-top" alt="No Image">
+            }
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+                <h5 class="card-title"> @book.BookName </h5>
                 <p class="card-text">
-                    <b>Genre: </b> <br />
-                    <b>Author: </b> <br />
-                    <b>Price: </b> <br />
-                    <b>Quantity: </b> <br />
+                    <b>Genre:</b>  @book.GenreName  <br />
+                    <b>Author:</b>  @book.AuthorName  <br /> 
+                    <b>Price:</b> @book.Price  <br />
+                    <b>Quantity:</b>  @book.Quantity  <br />
 
 
                 </p>
