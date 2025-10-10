@@ -64,6 +64,23 @@
 */
 
 
+// ====================================== 05: Home Controller ==================================
+/*
+    . First i'll create repository and the interface for that repository.
+    . We need constructor cuz we need DB Context class
+    . GlobalUsings is a very powerful feature introduced in .NET 6 that allows you to define namespaces that are automatically included in all files of your project.
+    . Here is the text exactly as it appears in the image:
+
+    . if (genreId > 0)
+        {  books = books.Where(a => a.GenreId == genreId).ToList(); }
+    . It is not a good practice. First we are retrieving records from the database,then we are filtering it by genreId. So, filtering is done at the client side, it should be in the database side. Consider to filter in the linq query.
+
+    . After making func in Repo we have to create the Interface and add the func signature there and then add the repo as a service in Program.cs file so that we can use the functionality of dependency injection.
+    . Used contain in linq query to search the book name rather than startswith in Home Repo.
+*/
+
+
+
 
 
 

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OnlineBookStore;
 using OnlineBookStore.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,9 @@ builder.Services
     .AddDefaultTokenProviders();
 
 builder.Services.AddControllersWithViews();
+
+// Adding Repositories for DI 
+builder.Services.AddTransient<IHomeRepository, HomeRepository>();
 
 var app = builder.Build();
 
