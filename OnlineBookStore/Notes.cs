@@ -80,7 +80,27 @@
 */
 
 
+// ====================================== 06: Cart Controller ==================================
+/*
+    . We used UserManager service from this we can get the current logged in user. Like we get the info of user which is stored in token
+    . In CartRep AddItem method we first get the userId of current logged in user then we check if the cart is present for that user if not we create a new cart for that user and then we add the item to the cart.
+    . For adding we have to do transaction cuz we are adding in two tables so if one fails the other should also fail.
+    . So now cart will be enter to DB but the carDetails wont so its error either whole transaction happens or none will happens that is the ACID property which is called Atomicity. So thats why we are using Transaction
+    . We have to call SaveChangesAsync after adding both the entities to the DBContext so that both the entities are saved to the database.
+    . In cartController AddItem method we are going to hit that from 2 locations 
+        1. It will be JS method which will return the count of cart
+        2. When we will hot without JS method then it will redirect to GetUserCart method 
+    . Why we have created the script section in Index file
+    . In Layout file we have a RenderSection method which will render the section which is defined in the content page.
+    . First have to start from DB 
+    . in which content page we need to define the script file we can create a section there and that section will be rendered in the layout file.
+    . Cart functionality is completed now we'll work on checkout btn
+    
+    CheckOut Method:
+    . We have to use enum for OrderStatuses its very much easy
+    . For money related fields we must use decimal data type instead of double
 
+*/
 
 
 

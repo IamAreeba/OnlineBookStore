@@ -34,38 +34,73 @@
             <button type="submit" class="btn btn-primary">Search</button>
             <a href="/Home/Index" class="btn btn-dark"> Reset </a>
       </div>
-    </form>
+    </form> 
    
 </div>
 
-,
-<div class="w-100 d-flex my-3 flex-wrap" >
+<div class="row my-4">
 
-    @foreach(var book in Model.Books)
+    @foreach (var book in Model.Books)
     {
-        <div class="card mx-3 mb-4" style="width: 18rem;">
+        <div class="col-6 col-md-4 col-lg-3 mb-4">
+            <div class="card" style="width: 100%;">
 
-            @if (string.IsNullOrEmpty(book.Image)) 
-            {
-                <img  src="~/images/no image.png" class="card-img-top" alt="No Image">
-            }
-            else
-            {
-                <img  src="~/images/@book.Image" class="card-img-top" alt="No Image">
-            }
-            <div class="card-body">
-                <h5 class="card-title"> @book.BookName </h5>
-                <p class="card-text">
-                    <b>Genre:</b>  @book.GenreName  <br />
-                    <b>Author:</b>  @book.AuthorName  <br /> 
-                    <b>Price:</b> @book.Price  <br />
-                    <b>Quantity:</b>  @book.Quantity  <br />
+                @if (string.IsNullOrEmpty(book.Image))
+                {
+                    <img src="~/images/no image.png" class="card-img-top" alt="No Image">
+                }
+                else
+                {
+                    <img src="~/images/@book.Image" class="card-img-top" alt="No Image">
+                }
 
+                <div class="card-body">
+                    <h5 class="card-title">@book.BookName</h5>
+                    <p class="card-text">
+                        <b>Genre:</b> @book.GenreName <br />
+                        <b>Author:</b> @book.AuthorName <br />
+                        <b>Price:</b> @book.Price <br />
+                        <b>Quantity:</b> @book.Quantity <br />
+                    </p>
+                    <button type="button" onclick="add(@book.Id)" class="btn btn-primary">Add To Cart</button>
+                </div>
 
-                </p>
-                <a href="#" class="btn btn-primary">Add To Cart</a>
             </div>
         </div>
     }
 
+    @foreach(var book in Model.Books)
+    {
+        
+    }
+
 </div>
+
+@section Scripts {
+    <script>
+        // console.log("Hello");
+        async function add(bookId){
+
+            var usernameEl = document.getElementById("username");
+            if(usernameEl == null){
+                window.location.href = "/Identity/Account/Login";
+            }
+
+            try{
+                var response = await fetch(`/Cart/AddItem?bookId=${bookId}`);
+                if(response.status == 200){
+                    var results = await response.json();
+                    console.log(results);
+                    var cartCountEl = document.getElementById("cartCount");
+                    cartCountEl.innerHTML = results;
+                    window.location.href = "#cartCount";
+                }
+            }
+
+            catch(err){
+                console.log(err);
+            }
+        }
+        // console.log("Areeba");
+    </script> 
+}
