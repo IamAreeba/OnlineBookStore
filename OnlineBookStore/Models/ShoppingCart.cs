@@ -10,6 +10,7 @@ namespace OnlineBookStore.Models
 
         [Required]
         public string UserId { get; set; }  // Owner of cart
+
         public ICollection<CartDetail> CartDetails { get; set; } // 1 cart has many cart items
     }
 }
